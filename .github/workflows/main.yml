@@ -2,7 +2,7 @@ name: Powerful BotStatus
 
 on:
   schedule:
-    - cron: "*/45 * * * *"
+    - cron: "*/10 * * * *"
   push:
     branches:
       - main
