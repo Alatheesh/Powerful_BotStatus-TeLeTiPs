@@ -1,0 +1,33 @@
+name: Powerful BotStatus
+
+on:
+  schedule:
+    - cron: "*/45 * * * *"
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyrogram==1.4.16 pytz==2021.3
+    - name: Run botstatus_teletips.py
+      env:
+        API_ID: ${{ secrets.API_ID }}
+        API_HASH: ${{ secrets.API_HASH }}
+        SESSION_NAME: ${{ secrets.SESSION_NAME }}
+        BOT_LIST: ${{ secrets.BOT_LIST }}
+        CHANNEL_OR_GROUP_ID: ${{ secrets.CHANNEL_OR_GROUP_ID }}
+        MESSAGE_ID: ${{ secrets.MESSAGE_ID }}
+        BOT_ADMIN_IDS: ${{ secrets.BOT_ADMIN_IDS }}
+        TIME_ZONE: ${{ secrets.TIME_ZONE }}
+      run: python botstatus_teletips.py
